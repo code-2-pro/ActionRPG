@@ -42,9 +42,14 @@ public class Player extends Entity{
 
 //        worldX = gp.tileSize * 23;
 //        worldY = gp.tileSize * 21;
-        
-        worldX = gp.tileSize * 12;
-        worldY = gp.tileSize * 10;
+
+        gp.currentMap = 3;
+        gp.currentArea = gp.dungeon;
+        worldX = gp.tileSize * 25;
+        worldY = gp.tileSize * 30;
+
+//        worldX = gp.tileSize * 12;
+//        worldY = gp.tileSize * 10;
 
         defaultSpeed = 4;
         speed = defaultSpeed;
@@ -57,7 +62,7 @@ public class Player extends Entity{
         maxMana = 4;
         mana = maxMana;
         ammo = 10;
-        strength = 1; // The more strength he has, the more damage he gives.
+        strength = 100; // The more strength he has, the more damage he gives.
         dexterity = 1; // The more dexterity he has, the less damage he receives.
         exp = 0;
         nextLevelExp = 5;
@@ -77,6 +82,7 @@ public class Player extends Entity{
     }
     public void setDefaultPositions(){
 
+        gp.currentMap = 0;
         worldX = gp.tileSize * 23;
         worldY = gp.tileSize * 21;
         direction = "down";
@@ -355,13 +361,14 @@ public class Player extends Entity{
         if(mana > maxMana){
             mana = maxMana;
         }
-        if(life <= 0){
-            gp.gameState = gp.gameOverState;
-            gp.ui.commandNum = -1;
-            gp.stopMusic();
-            gp.playSE(12);
+        if(!keyH.godModeOn){
+            if(life <= 0){
+                gp.gameState = gp.gameOverState;
+                gp.ui.commandNum = -1;
+                gp.stopMusic();
+                gp.playSE(12);
+            }
         }
-
     }
     public  void pickUpObject (int i){
 
@@ -659,7 +666,10 @@ public class Player extends Entity{
         if(transparent){
             g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.4f));
         }
-        g2.drawImage(image, tempScreenX, tempScreenY,null);
+        if(drawing){
+            g2.drawImage(image, tempScreenX, tempScreenY,null);
+        }
+
         // Reset alpha
         g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 

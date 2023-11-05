@@ -9,7 +9,8 @@ public class KeyHandler implements KeyListener {
     public boolean upPressed, downPressed, leftPressed, rightPressed, enterPressed, shotKeyPressed, spacePressed;
 
     // DEBUG
-    boolean showDebugText = false;
+    public boolean showDebugText = false;
+    public boolean godModeOn = false;
 
     public KeyHandler(GamePanel gp){
         this.gp = gp;
@@ -36,7 +37,7 @@ public class KeyHandler implements KeyListener {
             pauseState(code);
         }
         // DIALOGUE STATE
-        else if (gp.gameState == gp.dialogueState) {
+        else if (gp.gameState == gp.dialogueState || gp.gameState == gp.cutsceneState) {
             dialogueState(code);
         }
         // CHARACTER STATE
@@ -186,6 +187,14 @@ public class KeyHandler implements KeyListener {
                 case 1: gp.tileM.loadMap("/Maps/interior01.txt",1);
             }
          }
+         if (code == KeyEvent.VK_G) {
+             if (!godModeOn) {
+                 godModeOn = true;
+             } else if (godModeOn) {
+                 godModeOn = false;
+             }
+         }
+
         }
 
     public void dialogueState(int code){

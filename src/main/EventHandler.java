@@ -1,5 +1,6 @@
 package main;
 
+import data.Progress;
 import entity.Entity;
 
 import java.awt.*;
@@ -77,6 +78,7 @@ public class EventHandler {
             else if(hit(2,9,41, "any")) {teleport(0,12, 9, gp.outside);} // to outside
             else if(hit(2,8, 7, "any")) {teleport(3,26,41, gp.dungeon);} // to B2
             else if(hit(3,26,41, "any")) {teleport(2,8, 7, gp.dungeon);} // to B1
+            else if(hit(3,25,27, "any")) {skeletonLord();}
         }
 
     }
@@ -148,4 +150,13 @@ public class EventHandler {
             entity.speak();
         }
     }
+      public void skeletonLord(){
+
+        if (gp.bossBattleOn == false && !Progress.skeletonLordDefeated){
+            gp.gameState = gp.cutsceneState;
+            gp.csManager.sceneNum = gp.csManager.skeletonLord;
+        }
+    }
+
+
 }

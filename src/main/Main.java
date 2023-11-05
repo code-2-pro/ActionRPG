@@ -1,6 +1,7 @@
 package main;
 
-import javax.swing.JFrame;
+import javax.swing.*;
+import java.util.Objects;
 
 public class Main {
 
@@ -11,7 +12,8 @@ public class Main {
         window = new JFrame();
         window.setDefaultCloseOperation (JFrame.EXIT_ON_CLOSE);
         window.setResizable(false);
-        window.setTitle("2D Adventure");
+        window.setTitle("Blue Boy Adventure");
+        new Main().setIcon();
 
         GamePanel gamePanel = new GamePanel();
         window.add(gamePanel);
@@ -30,4 +32,9 @@ public class Main {
         gamePanel.startGameThread();
         
     }
+    public void setIcon(){
+        ImageIcon icon = new ImageIcon(Objects.requireNonNull(getClass().getClassLoader().getResource("Player/Walking_sprites/boy_down_1.png")));
+        window.setIconImage(icon.getImage());
+    }
+
 }
